@@ -1,9 +1,12 @@
-import Image from "next/image";
+import React from 'react';
+import Hero from '@/components/Hero';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="text-blue-400">
-      hello
-    </div>
+    <main className="min-h-screen">
+      <Hero />
+      <Footer />
+    </main>
   );
 }
