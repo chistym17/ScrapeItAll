@@ -2,19 +2,19 @@ import React from 'react';
 
 export default function Hero() {
   return (
-    <section className="py-20 text-center bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-400">
-      <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-sky-50 to-indigo-50">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-5xl md:text-7xl font-bold text-zinc-800 mb-6">
           ScrapeMaster Pro
         </h1>
-        <h2 className="text-xl md:text-2xl text-white/90 mb-8">
+        <h2 className="text-xl md:text-2xl text-zinc-600 mb-8">
           Powerful Web Scraping Made Simple
         </h2>
-        <p className="text-white/80 max-w-2xl mx-auto mb-8">
+        <p className="text-zinc-500 max-w-2xl mx-auto mb-10">
           Extract, transform, and analyze web data with ease. 
           Built for developers, researchers, and data enthusiasts.
         </p>
-        <button className="bg-white text-purple-600 hover:bg-purple-100 font-bold py-3 px-8 rounded-lg transition-colors duration-200">
+        <button className="bg-zinc-800 text-white hover:bg-zinc-700 font-medium py-3 px-8 rounded-md transition-colors duration-200">
           Get Started
         </button>
       </div>
