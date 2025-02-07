@@ -1,20 +1,52 @@
 'use client'
 
 import React, { useState } from 'react';
+import ScrapeResults from './ScrapeResults';
+
+interface Url {
+  url: string;
+  selected: boolean;
+  processed: boolean;
+  size: number;
+}
 
 export default function ScrapeForm() {
   const [inputType, setInputType] = useState<'sitemap' | 'url'>('sitemap');
   const [sitemapUrl, setSitemapUrl] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [urls, setUrls] = useState<Url[]>([]);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
+    setUrls([]);
     
-    console.log('Scraping started for:', inputType === 'sitemap' ? sitemapUrl : websiteUrl);
-    
-    setTimeout(() => setIsLoading(false), 2000);
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/fetch-sitemap/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          domain: inputType === 'sitemap' ? sitemapUrl : websiteUrl,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        setUrls(data.urls);
+      } else {
+        setError('Failed to fetch URLs. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred while fetching the URLs. Please check the URL and try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -93,6 +125,12 @@ export default function ScrapeForm() {
               />
             </div>
 
+            {error && (
+              <div className="text-red-500 text-sm bg-red-50 p-4 rounded-lg">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={isLoading}
@@ -110,6 +148,8 @@ export default function ScrapeForm() {
               )}
             </button>
           </form>
+
+          <ScrapeResults urls={urls} isLoading={isLoading} />
         </div>
       </div>
     </section>
