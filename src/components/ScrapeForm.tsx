@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import ScrapeResults from './ScrapeResults';
+import PaginatedResults from './PaginatedResults';
 
 interface Url {
   url: string;
@@ -149,7 +149,7 @@ export default function ScrapeForm() {
             </button>
           </form>
 
-          <ScrapeResults urls={urls} isLoading={isLoading} />
+          {urls.length > 0 && <PaginatedResults urls={urls} />}
         </div>
       </div>
     </section>
